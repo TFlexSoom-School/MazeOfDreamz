@@ -1,12 +1,39 @@
 <!DOCTYPE html>
 <html>
+  
   <head>
-	<title>Maze of Dreamz</title>
-    <script src="src/createjs.min.js"></script>
-	<script src="src/easeljs.min.js"></script>
+    <title>Maze of Dreamz</title>
+    
+    <!-- Third Party Scripts -->
+    <script src="src/third-party/createjs.min.js"></script>
+	  <script src="src/third-party/easeljs.min.js"></script>
+    
+    <!-- Initial Generation -->
+    <script src="src/generation/gen-map.js"></script>
+    <script src="src/generation/gen-state.js"></script>
+
+    <!-- Rendering Setup (SEE NOTE) -->
+    <script src="src/stage/map-render.js"></script>
+    <script src="src/stage/set_stage.js"></script>
+
+    <!--------- ************** Entities ************** --------->
+
+    <!--------- ************** Systems ************** --------->
+    
+    <!-- Input -->
+    <script src="src/systems/input/input.js"></script>
+
+    <!-- Movement -->
+    <script src="src/systems/movable/movable.js"></script>
+
+
+    <!--------- ************** Main ************** --------->
+    <script src="src/main.js" defer></script>
+
+    
+
   </head>
-  <body>
+    <body>
     <canvas id="game_board" width="500" height="300"></canvas>
-	<script src="src/main.js"></script>
   </body>
 </html>
