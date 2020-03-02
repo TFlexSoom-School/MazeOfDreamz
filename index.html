@@ -17,15 +17,24 @@
     <script src="src/stage/set_stage.js"></script>
 
     <!--------- ************** Entities ************** --------->
-
+    <script src="src/entities/enemies/enemy.js"></script>
+    
     <!--------- ************** Systems ************** --------->
     
+    <!-- AI -->
+    <script src="src/systems/ai/zombie_ai.js"></script>
+
+    <!-- Collision -->
+
     <!-- Input -->
     <script src="src/systems/input/input.js"></script>
 
     <!-- Movement -->
-    <script src="src/systems/movable/movable.js"></script>
+    <script src="src/systems/movable/auto_movable.js"></script>
+    <script src="src/systems/movable/player_movable.js"></script>
 
+    <!-- Spawning -->
+    <script src="src/systems/spawn/spawn.js"></script>
 
     <!--------- ************** Main ************** --------->
     <script src="src/main.js" defer></script>

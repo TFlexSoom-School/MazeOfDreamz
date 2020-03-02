@@ -2,7 +2,7 @@
  * Tristan Hilbert & Cory Hayes
  * 3/2/2020
  * 
- * Returns a function for a movable object
+ * Returns a function for a player movable object
  * 
  */
 
@@ -36,7 +36,6 @@ function get_move_functions(player_name, input_map){
         if(state.input & input_map["up"]){
             state[player_name].animation.y -= 2;
             isPlayerMoving = true;
-            console.log("UP");
         }
 
         // Move Right
@@ -44,14 +43,12 @@ function get_move_functions(player_name, input_map){
             state[player_name].animation.x += 2;
             state[player_name].facingRight = true;
             isPlayerMoving = true;
-            console.log("RIGHT");
         }
 
         // Move Down
         if(state.input & input_map["down"]){
             state[player_name].animation.y += 2;
             isPlayerMoving = true;
-            console.log("DOWN");
         }
 
         // Move Left
@@ -59,7 +56,6 @@ function get_move_functions(player_name, input_map){
             state[player_name].animation.x -= 2;
             state[player_name].facingRight = false;
             isPlayerMoving = true;
-            console.log("LEFT");
         }
         
         // Animate Player
