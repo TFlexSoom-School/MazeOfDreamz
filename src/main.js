@@ -21,24 +21,21 @@ function main(){
 
 	set_stage(state, render_stage);
 
-	/* SETUP UPDATE */
-	var resolve_player_functions = [
-		get_move_functions(state, "player1", get_default_player1_control_map()),
-		get_move_functions(state, "player2", get_default_player2_control_map())
-	];
+	// Get 2 Player Objects
+	var player_tick = new_num_players(state, render_stage, 2);
 
+	// Get Enemy Spawner/Hive Mind
 	var enemy_tick = new_hive_mind(state);
+
+	console.log(state)
 
 	// handles canvas updates
 	function update(event){
 		// Tasks or Systems (resolves)
 		state.input = resolve_input();
-		resolve_player_functions[0].resolve_movement(state);
-		resolve_player_functions[1].resolve_movement(state);
-		resolve_player_functions[0].resolve_rotate(state);
-		resolve_player_functions[1].resolve_rotate(state);
 
 		/* Tick Functions */
+		player_tick(state, render_stage);
 		enemy_tick(state, render_stage);
 
 		resolve_exit(state);

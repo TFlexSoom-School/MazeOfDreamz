@@ -43,6 +43,10 @@ document.addEventListener("keydown", (event) => {
             input_buffer_down = input_buffer_down | input_flag_left1;
             input_buffer_up = input_buffer_up & ~input_flag_left1;
             break;
+        case "E":
+            input_buffer_down = input_buffer_down | input_flag_special1;
+            input_buffer_up = input_buffer_up & ~input_flag_special1;
+            break;
 		case "I":
             input_buffer_down = input_buffer_down | input_flag_up2;
             input_buffer_up = input_buffer_up & ~input_flag_up2;
@@ -58,6 +62,10 @@ document.addEventListener("keydown", (event) => {
         case "J":
             input_buffer_down = input_buffer_down | input_flag_left2;
             input_buffer_up = input_buffer_up & ~input_flag_left2;
+            break;
+        case "O":
+            input_buffer_down = input_buffer_down | input_flag_special2;
+            input_buffer_up = input_buffer_up & ~input_flag_special2;
             break;
         default:
             //console.log(key_code_temp);
@@ -94,6 +102,9 @@ document.addEventListener("keyup", (event) => {
         case "A":
             input_buffer_up = input_buffer_up | input_flag_left1;
             break;
+        case "E":
+            input_buffer_up = input_buffer_up | input_flag_special1;
+            break;
 		case "I":
             input_buffer_up = input_buffer_up | input_flag_up2;
             break;
@@ -105,6 +116,9 @@ document.addEventListener("keyup", (event) => {
             break;
         case "J":
             input_buffer_up = input_buffer_up | input_flag_left2;
+            break;
+        case "O":
+            input_buffer_up = input_buffer_up | input_flag_special2;
             break;
         default:
             //console.log(key_code_temp);
@@ -136,22 +150,24 @@ function resolve_input(){
     // No Need to return state as the object will be passed by ref
 }
 
-function get_default_player1_control_map(){
-    return {
-        "up": input_flag_up1,
-        "right": input_flag_right1,
-        "down": input_flag_down1,
-        "left": input_flag_left1,
-        "special": input_flag_special1
-    }
-}
-
-function get_default_player2_control_map(){
-    return {
-        "up": input_flag_up2,
-        "right": input_flag_right2,
-        "down": input_flag_down2,
-        "left": input_flag_left2,
-        "special": input_flag_special2
+function get_default_player_control_map(player){
+    if(player == 1){
+        return {
+            "up": input_flag_up1,
+            "right": input_flag_right1,
+            "down": input_flag_down1,
+            "left": input_flag_left1,
+            "special": input_flag_special1
+        }
+    }else if(player == 2){
+        return {
+            "up": input_flag_up2,
+            "right": input_flag_right2,
+            "down": input_flag_down2,
+            "left": input_flag_left2,
+            "special": input_flag_special2
+        }
+    }else{
+        throw "Only Players 1 and 2 have defined mappings!";
     }
 }

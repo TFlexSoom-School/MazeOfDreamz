@@ -15,17 +15,7 @@
  * 
  */
 
-function get_move_functions(state_const, player_name, input_map){
-
-    // flip sprite to face proper direction
-    function resolve_rotate(state){
-        // turn sprite if necessary
-        if(state[player_name].facingRight != state[player_name].facingRightPrev){
-            state[player_name].animation.scaleX = state[player_name].animation.scaleX * -1;
-            state[player_name].animation.x -= state[player_name].animation.scaleX * state[player_name].width;
-            state[player_name].facingRightPrev = state[player_name].facingRight;
-        }
-    }
+function get_move_function(state_const, player_name, input_map){
 
     const speed_x = Math.floor(state_const[player_name].width / 8);
     const speed_y = Math.floor(state_const[player_name].height / 8);
@@ -86,8 +76,20 @@ function get_move_functions(state_const, player_name, input_map){
         }
     }
 
-    return {
-        resolve_movement: resolve_movement,
-        resolve_rotate: resolve_rotate
+    return resolve_movement;
+}
+
+function get_rotate_function(state_const, player_name){
+
+    // flip sprite to face proper direction
+    function resolve_rotate(state){
+        // turn sprite if necessary
+        if(state[player_name].facingRight != state[player_name].facingRightPrev){
+            state[player_name].animation.scaleX = state[player_name].animation.scaleX * -1;
+            state[player_name].animation.x -= state[player_name].animation.scaleX * state[player_name].width;
+            state[player_name].facingRightPrev = state[player_name].facingRight;
+        }
     }
+
+    return resolve_rotate;
 }

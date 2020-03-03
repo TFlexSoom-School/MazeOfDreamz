@@ -17,7 +17,8 @@
     <script src="src/stage/set_stage.js"></script>
 
     <!--------- ************** Entities ************** --------->
-    <script src="src/entities/enemies/enemy.js"></script>
+    <script src="src/entities/enemy.js"></script>
+    <script src="src/entities/player.js"></script>
     
     <!--------- ************** Systems ************** --------->
     
@@ -36,6 +37,9 @@
     <!-- Spawning -->
     <script src="src/systems/spawn/spawn.js"></script>
 
+    <!-- Special Action -->
+    <script src="src/systems/special-action/player_action.js"></script>
+
     <!--------- ************** Main ************** --------->
     <script src="src/main.js" defer></script>
 
@@ -43,6 +47,6 @@
 
   </head>
     <body>
-    <canvas id="game_board" width="500" height="300"></canvas>
+    <canvas id="game_board" width="800" height="450"></canvas>
   </body>
 </html>
