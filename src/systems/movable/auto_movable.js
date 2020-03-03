@@ -20,3 +20,13 @@ function movable_steady_translation(ref){
     ref.x += diffx;
     ref.y += diffy;
 }
+
+function movable_teleport_to(ref, target_ref){
+    ref.y = target_ref.x;
+    ref.x = target_ref.y;
+}
+
+function movable_teleport_to_with_offset(ref, target_ref, offset){
+    ref.y = target_ref.x - offset.x;
+    ref.x = target_ref.y - offset.y;
+}
