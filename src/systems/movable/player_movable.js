@@ -15,7 +15,7 @@
  * 
  */
 
-function get_move_functions(player_name, input_map){
+function get_move_functions(state_const, player_name, input_map){
 
     // flip sprite to face proper direction
     function resolve_rotate(state){
@@ -27,35 +27,53 @@ function get_move_functions(player_name, input_map){
         }
     }
 
+    const speed_x = Math.floor(state_const[player_name].width / 8);
+    const speed_y = Math.floor(state_const[player_name].height / 8);
+
+    // 1.414214 = SQRT(2)
+    const speed_lin = Math.round(state_const[player_name].height / (8 * 1.414214));
 
     function resolve_movement(state){
-        // Player one moves
+
+        // Player moves
         var isPlayerMoving = false;
+        var diffx = 0;
+        var diffy = 0;
 
         // Move Up
         if(state.input & input_map["up"]){
-            state[player_name].animation.y -= 2;
+            diffy -= speed_y;
             isPlayerMoving = true;
-        }
-
-        // Move Right
-        if(state.input & input_map["right"]){
-            state[player_name].animation.x += 2;
-            state[player_name].facingRight = true;
-            isPlayerMoving = true;
+            isPlayerMovingHoriz = true;
         }
 
         // Move Down
         if(state.input & input_map["down"]){
-            state[player_name].animation.y += 2;
+            diffy += speed_y;
+            isPlayerMoving = true;
+            isPlayerMovingHoriz = true;
+        }
+
+        // Move Right
+        if(state.input & input_map["right"]){
+            diffx += speed_x;
+            state[player_name].facingRight = true;
             isPlayerMoving = true;
         }
 
         // Move Left
         if(state.input & input_map["left"]){
-            state[player_name].animation.x -= 2;
+            diffx -= speed_x;
             state[player_name].facingRight = false;
             isPlayerMoving = true;
+        }
+
+        if(diffx != 0 && diffy != 0){
+            state[player_name].animation.x += speed_lin * (diffx / Math.abs(diffx));
+            state[player_name].animation.y += speed_lin * (diffy / Math.abs(diffy));
+        }else{
+            state[player_name].animation.x += diffx;
+            state[player_name].animation.y += diffy;
         }
         
         // Animate Player

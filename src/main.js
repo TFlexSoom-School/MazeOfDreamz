@@ -23,8 +23,8 @@ function main(){
 
 	/* SETUP UPDATE */
 	var resolve_player_functions = [
-		get_move_functions("player1", get_default_player1_control_map()),
-		get_move_functions("player2", get_default_player2_control_map())
+		get_move_functions(state, "player1", get_default_player1_control_map()),
+		get_move_functions(state, "player2", get_default_player2_control_map())
 	];
 
 	var enemy_tick = new_hive_mind(state);

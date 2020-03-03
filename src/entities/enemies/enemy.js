@@ -18,8 +18,11 @@ const enemy_height = 16;
 const enemy_speed_default = 2;
 
 const enemy_spawn_points = [
-    {x: 200, y: 350}
-]
+    {x: 200, y: 250},
+    {x: 300, y: 150},
+    {x: 100, y: 280},
+    {x: 300, y: 220}
+];
 
 function new_hive_mind(state){
     state.enemy = {
