@@ -11,10 +11,10 @@ const input_flag_exit = 32;
 var stage = new createjs.Stage("game_board");
 var hw = stage.canvas.width / 2;
 var hh = stage.canvas.height / 2;
-var sp;  //test block
-sp = new createjs.Shape();
-sp.graphics.beginFill("rgba(254,241,103,1)").drawRect(hw,hh,40,40)
-stage.addChild(sp);
+//var sp;  //test block
+//sp = new createjs.Shape();
+//sp.graphics.beginFill("rgba(254,241,103,1)").drawRect(hw,hh,40,40)
+//stage.addChild(sp);
 //object();
 
 // stores game state
@@ -237,16 +237,17 @@ function collision(direction) {
    area.graphics.beginStroke("rgba(255,0,0,0.5)").drawRect(0, 0, state.player.width, state.player.height);
    area.x = state.player.animation.x;
    area.y = state.player.animation.y;
+    if (!state.player.facingRight) {
+        area.x = area.x - 64;
+    }
 
-    //sp.x = 400;
-   // sp.y = 400;
-   // sp.width = 10;
-   // sp.height = 10;
-   // area.width = 10;
-   // area.height = 10;
+
+
+
+
 
     console.log(area.x, area.y, state.player.animation.x, state.player.animation.y);
-    console.log(sp.x, sp.y);
+
     
     switch (direction) {
         case "up":
@@ -265,31 +266,31 @@ function collision(direction) {
      
 
 
-        //(x1 + w1) < x2 || (x2 + w2) < x1 || (y1 + h1) < y2 || (y2 + h2) < y1
-        //x,y is the position of left up corner of the square. w=width h=height
+    //(x1 + w1) < x2 || (x2 + w2) < x1 || (y1 + h1) < y2 || (y2 + h2) < y1
+    //x,y is the position of left up corner of the square. w=width h=height
 
-        //if ((area.x + area.width * 0.5) < sp.x - 0.5 * sp.width ||
-        //    sp.x + sp.width * 0.5 < area.x - area.width * 0.5 ||
-        //    (area.y + area.height * 1.5) < sp.y + 0.5 * sp.height ||
-         //   sp.y + sp.height * 1.5 < area.y + area.height * 0.5) { 
+    //if ((area.x + area.width * 0.5) < sp.x - 0.5 * sp.width ||
+    //    sp.x + sp.width * 0.5 < area.x - area.width * 0.5 ||
+    //    (area.y + area.height * 1.5) < sp.y + 0.5 * sp.height ||
+    //   sp.y + sp.height * 1.5 < area.y + area.height * 0.5) { 
 
 
     //need to figure out how to get postion of cp(test yellow cube), use hard code for test
-    if ((area.x + 10 * 0.5) < 200 - 0.5 * 10 ||
-                200 + 10 * 0.5 < area.x - 10 * 0.5 ||
-                (area.y + 10 * 1.5) < sp.y + 0.5 * 10 ||
-                200 + 10 * 1.5 < area.y + 10 * 0.5) { 
+    if ((area.x + 64) < 250 ||
+        250 + 40 < area.x ||
+        (area.y + 64) < 150 ||
+        150 + 40 < area.y) {
 
         is_blocked = false;
-        }
+    }
 
-        else
-        {
-            is_blocked = true;
-        }
+    else {
+        is_blocked = true;
+    }
 
 
-    console.log(is_blocked, area.width, sp.width, area.height,sp.height);
+
+    console.log(is_blocked, area.width, area.height);
     return is_blocked;
 }
 
