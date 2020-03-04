@@ -57,8 +57,6 @@ function main(){
 		}
 	}
 
-
-	/* START GAME */
 	createjs.Ticker.setFPS(40);
     createjs.Ticker.addEventListener("tick", update);
 }
