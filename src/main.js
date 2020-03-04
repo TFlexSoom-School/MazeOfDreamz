@@ -137,19 +137,25 @@ function setup(){
 
 // create map of size X tiles width, Y tiles height
 function gen_map(x, y){
-	// random number of rooms between 3 - 4
-	const room_count = Math.floor(Math.random() * 2 + 3);
-	
+	// random number of rooms between 3 - 5
+	const room_count = Math.floor(Math.random() * 3 + 8);
+
 	// room tile count variability +-5%
 	const room_margin = 0.05;
 	
-	const tile_count = x  * y;
+	const tile_count = x * y;
 	const tile_colors = [
-		"floor_1.png", 
-		"floor_2.png", 
-		"floor_9.png", 
-		"floor_side4.png"
-	];
+		"floor_1.png",
+		"floor_2.png",
+		"floor_3.png",
+		"floor_4.png",
+		"floor_5.png",
+		"floor_6.png",
+		"floor_7.png",
+		"floor_8.png",
+		"floor_9.png",
+		"floor_10.png",
+	]
 	
 	var tilesRemaining = tile_count;
 	var tilesPerRoom = [];
@@ -159,45 +165,59 @@ function gen_map(x, y){
 	// initialize tiles 2D array
 	for(var i = 0; i < x; i++){
 		tiles[i] = [];
+		
+		for(var j = 0; j < y; j++){
+			tiles[i][j] = {
+				color: null,
+				x: i * tile_dim,
+				y: j * tile_dim,
+			};
+		}
 	}
 	
 	// allocate first (room_count - 1) rooms an amount of tiles
 	for(var i = 0; i < room_count - 1; i++){
-		tilesPerRoom[i] = tile_count / room_count + Math.floor((Math.random() * 2 * room_margin - room_margin) * tile_count);
-		tilesRemaining = tilesRemaining - tilesPerRoom[i];
+		//tilesPerRoom[i] = Math.floor(tile_count / room_count + (Math.random() * 2 * room_margin - room_margin) * tile_count); // giving too much variability
+		tilesPerRoom[i] = Math.floor(tile_count / room_count);
+		tilesRemaining -= tilesPerRoom[i];
 	}
 	
 	// allocate last room remaining tiles
-	tilesPerRoom[i - 1] = tilesRemaining;
+	tilesPerRoom[room_count - 1] = tilesRemaining;
 	
 	for(var i = 0; i < room_count; i++){
-		var startTileX = 0;
-		var startTileY = 0;
+		var startTileX;
+		var startTileY;
 		
-		while(tiles[startTileX][startTileY] != null){
+		do{
 			startTileX = Math.floor(Math.random() * x);
 			startTileY = Math.floor(Math.random() * y);
-		}
+		}while(tiles[startTileX][startTileY].color != null)
 		
-		create_tiles(tilesPerRoom[i], tile_colors[i], startTileX, startTileY, x, y);
+		create_tiles(tilesPerRoom[i] - 1, tile_colors[i], startTileX, startTileY, x, y);
 	}
+	
+	for(var i = 0; i < tiles.length; i++){
+		for(var j = 0; j < tiles[i].length; j++){
+			if(tiles[i][j].color == null){
+				tiles[i][j].color = "wall_1.png";
+			}
+		}
+	}
+	
 }
 
-function create_tiles(tileCount, color, x, y, max_x, max_y){
+function create_tiles(tileCount, setColor, x, y, max_x, max_y){
 	if(x >= 0 && x < max_x && y >= 0 && y < max_y && tileCount > 0){
-		if(tiles[x][y] == null){
-			tiles[x][y] = {
-				color: this.color,
-				x: this.x * tile_dim,
-				y: this.y * tile_dim,
-			};
+		if(tiles[x][y].color == null){
+			tiles[x][y].color = setColor;
 			
-			create_tiles(--tileCount, color, --x, --y, max_x, max_y);
-			create_tiles(--tileCount, color, --x, ++y, max_x, max_y);
-			create_tiles(--tileCount, color, ++x, --y, max_x, max_y);
-			create_tiles(--tileCount, color, ++x, ++y, max_x, max_y);
+			create_tiles(--tileCount, setColor, --x, y, max_x, max_y);
+			create_tiles(--tileCount, setColor, x, --y, max_x, max_y);
+			create_tiles(--tileCount, setColor, ++x, y, max_x, max_y);
+			create_tiles(--tileCount, setColor, x, ++y, max_x, max_y);
 		}
-		else if(tiles[x][y].color != this.color){
+		else if(tiles[x][y].color != setColor){
 			tiles[x][y].color = "wall_1.png";
 		}
 		else{
@@ -211,24 +231,14 @@ function create_tiles(tileCount, color, x, y, max_x, max_y){
 
 function draw_map(){
 	const assets_dir = "assets/images/";
-	/* Bad tiles instantiation. Some tiles are empty
+	// Bad tiles instantiation. Some tiles are empty
 	for(var i = 0; i < tiles.length; i++){
 		for(var j = 0; j < tiles[i].length; j++){
-			console.log(i, j);
-			var newTile = new createjs.Bitmap(assets_dir + tiles[i][j].color);
-			
+			var newTile;
+
+			newTile = new createjs.Bitmap(assets_dir + tiles[i][j].color);
 			newTile.x = tiles[i][j].x;
 			newTile.y = tiles[i][j].y;
-			stage.addChild(newTile);
-		}
-	}
-	*/
-	for(var i = 0; i < stage.canvas.width / tile_dim; i++){
-		for(var j = 0; j < stage.canvas.height / tile_dim; j++){
-			var newTile = new createjs.Bitmap(assets_dir + "floor_1.png");
-			
-			newTile.x = i * tile_dim;
-			newTile.y = j * tile_dim;
 			stage.addChild(newTile);
 		}
 	}
@@ -301,7 +311,7 @@ function update(event){
 
 function main(){
 	state = setup();
-	gen_map((stage.canvas.width / tile_dim), (stage.canvas.height / tile_dim));
+	gen_map((Math.floor(stage.canvas.width / tile_dim)), (Math.floor(stage.canvas.height / tile_dim)));
 	draw_map();
 	
 	stage.addChild(state.player.animation);
