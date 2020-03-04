@@ -2,7 +2,7 @@
  * Tristan Hilbert
  * 3/2/2020
  * Systems for automated movement systems/functions
- * 
+ *
  */
 
 
@@ -117,7 +117,7 @@ function register_auto_movable_target(state, id){
 
 function resolve_auto_movable(state){
     if(state[auto_movable_id]){
-        for(var i = 0; i < state[auto_movable_id].registry.length; i ++){   
+        for(var i = 0; i < state[auto_movable_id].registry.length; i ++){
             switch(state[auto_movable_id].registry[i].type){
                 case auto_movable_type_translation_ref:
                     movable_resolve_translation_ref(
@@ -139,21 +139,21 @@ function resolve_auto_movable(state){
                     break;
                 case auto_movable_type_teleportation_point_with_offset:
                     movable_resolve_telportation_point(
-                        state[state[auto_movable_id].registry[i].entity], 
+                        state[state[auto_movable_id].registry[i].entity],
                         true
                     );
                     break;
                 case auto_movable_type_teleportation_ref_with_offset:
                     movable_resolve_teleportation_ref(
                         state,
-                        state[state[auto_movable_id].registry[i].entity], 
+                        state[state[auto_movable_id].registry[i].entity],
                         true
                     );
                     break;
                 case auto_movable_type_teleportation_point:
                 default:
                     movable_resolve_teleportation_point(
-                        state[state[auto_movable_id].registry[i].entity], 
+                        state[state[auto_movable_id].registry[i].entity],
                         false
                     );
                 }
@@ -168,9 +168,9 @@ function movable_resolve_translation_point(ref){
     var diffy = ref.target_movey - ref.y;
     var hyp = Math.sqrt(diffx * diffx + diffy * diffy);
 
-    if(hyp > ref.speed){
+    if(hyp > ref.speed_lin){
         var scaler = 0;
-        scaler = hyp / ref.speed;
+        scaler = hyp / ref.speed_lin;
         diffx = Math.round(diffx / scaler);
         diffy = Math.round(diffy / scaler);
     }
@@ -188,9 +188,9 @@ function movable_resolve_translation_ref(state, ref){
         var diffy = target.y - ref.y;
         var hyp = Math.sqrt(diffx * diffx + diffy * diffy);
 
-        if(hyp > ref.speed){
+        if(hyp > ref.speed_lin){
             var scaler = 0;
-            scaler = hyp / ref.speed;
+            scaler = hyp / ref.speed_lin;
             diffx = Math.round(diffx / scaler);
             diffy = Math.round(diffy / scaler);
         }

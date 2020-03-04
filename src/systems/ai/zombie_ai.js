@@ -2,16 +2,24 @@
  * Tristan Hilbert
  * 3/2/2020
  * Zombie AI Entrypoint
- * 
+ *
  * This module represents all of the automation of behavior amongst the
  * generic enemy. This way any global variable and such can be contained
  * within this module.
  */
 
 
-function zombie_ai(self_ref, target_ref){
-    var x = target_ref.x;
-    var y = target_ref.y;
-    self_ref.target_movex = x;
-    self_ref.target_movey = y;
+function resolve_zombie_ai(state, entity_id){
+    const target_id = get_player_id(0); // See player entity : player.js
+    const alt_target_id = get_player_id(1);
+
+    if(state[target_id]){
+        // Bad... This should just be x
+        var x = state[target_id].animation.x;
+        var y = state[target_id].animation.y;
+
+        // Might want to use Movable ref instead of point
+        state[entity_id].target_movex = x;
+        state[entity_id].target_movey = y;
+    }
 }

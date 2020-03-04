@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html>
-  
+
   <head>
     <title>Maze of Dreamz</title>
-    
+
     <!-- Third Party Scripts -->
     <script src="src/third-party/createjs.min.js"></script>
 	  <script src="src/third-party/easeljs.min.js"></script>
-    
+
     <!-- Initial Generation -->
     <script src="src/generation/map/gen-map.js"></script>
     <script src="src/generation/map/render-map.js"></script>
     <script src="src/generation/gen-state.js"></script>
-    
+    <script src="src/generation/game/rules.js"></script>
+
     <!--------- ************** Entities ************** --------->
     <script src="src/entities/enemy.js"></script>
     <script src="src/entities/player.js"></script>
     <script src="src/entities/slime_attack.js"></script>
-    
+    <script src="src/entities/spawn_list.js"></script>
+
     <!--------- ************** Systems ************** --------->
-    
+
     <!-- AI -->
+    <script src="src/systems/ai/ai.js"></script>
     <script src="src/systems/ai/zombie_ai.js"></script>
 
     <!-- Collision -->
@@ -48,7 +51,7 @@
     <!--------- ************** Main ************** --------->
     <script src="src/main.js" defer></script>
 
-    
+
 
   </head>
     <body>

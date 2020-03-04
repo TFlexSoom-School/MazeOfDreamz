@@ -2,7 +2,7 @@
  * CS29 DreamzCatcherz
  * 3/2/2020
  * The Entry File for MazeOfDreamz
- * 
+ *
  */
 
 function resolve_exit(state){
@@ -12,7 +12,7 @@ function resolve_exit(state){
 }
 
 function main(){
-	
+
 	// Generates an empty object to attach things to
 	var state = new_state();
 
@@ -32,8 +32,8 @@ function main(){
 	// Attach 2 players to State
 	new_num_players(state, 2);
 
-	// Get Enemy Spawner/Hive Mind
-	//var enemy_tick = new_hive_mind(state);
+	/* -- SETUP GAME -- */
+	setup_game(state); // See generation/game/rules.js
 
 	// For Debugging!
 	console.log(state)
@@ -44,8 +44,10 @@ function main(){
 		state.event = event
 		// Tasks or Systems (resolves)
 		resolve_input(state);
+        resolve_ai(state);
 		resolve_movable(state);
 		resolve_player_action(state);
+        resolve_spawn(state);
 		resolve_render(state);
 
 		// Check Exit Condition
