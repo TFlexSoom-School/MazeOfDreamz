@@ -19,6 +19,12 @@ const input_flag_down2 = 1 << 8;
 const input_flag_left2 = 1 << 9;
 const input_flag_special2 = 1 << 10;
 
+const input_id = "input";
+
+function register_input(state){
+    state[input_id] = input_flag_none;
+}
+
 // Input Event Async Buffer
 var input_buffer_down = input_flag_none;
 document.addEventListener("keydown", (event) => {
@@ -143,11 +149,9 @@ function copy_inputs(){
 }
 
 
-function resolve_input(){
+function resolve_input(state){
     var copy = copy_inputs();
-
-    return copy[0] & ~copy[1];
-    // No Need to return state as the object will be passed by ref
+    state[input_id] = copy[0] & ~copy[1];
 }
 
 function get_default_player_control_map(player){

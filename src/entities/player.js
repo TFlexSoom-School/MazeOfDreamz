@@ -5,83 +5,60 @@
  * 
  */
 
-function generate_player_id(index){
+// Index should be [0,1]
+function get_player_id(index){
     return player_id = "player" + (index + 1);
 }
 
-
-function new_num_players(const_state, render_stage, count){
-
-    var resolve_player_move = [];
-    var resolve_player_rotate = [];
-    var resolve_player_special = [];
+// Attach new players to state
+// Return functions for ticking players
+function new_num_players(state, count){
 
     for(var i = 0; i < count; i ++){
-        var knightImg = new Image(384, 64);  // width, height of resized knight image
-        knightImg.src = "assets/images/knight_run_spritesheet_large.png";
-        
-        var spriteWidth = 64;
-        var spriteHeight = 64;
-        
-        // knight run spritesheet data
-        var knightSheet = {
-            images: [knightImg],
-            frames: {width: spriteWidth, height: spriteHeight},
-            framerate: 15
-        };
-        
-        // create sprites	
-        var knightSprite = new createjs.SpriteSheet(knightSheet);
-        var animation = new createjs.Sprite(knightSprite);
-
-        const player_id = generate_player_id(i);
-
-        const_state[player_id] = {
-			animation: animation,
-			isMoving: false,
-			facingRight: true,
-			facingRightPrev: true,
-			width: spriteWidth,
-			height: spriteHeight
-        }
-
-        render_stage.addChild(const_state[player_id].animation);
-
-        const player_mappings = get_default_player_control_map(i + 1);
-        
-        resolve_player_move.push(
-            get_move_function(const_state, player_id, player_mappings)
-        );
-
-        resolve_player_rotate.push(
-            get_rotate_function(const_state, player_id)
-        );
-
-        // Input mappings for special buttons/action buttons
-        var action_mappings = [
-            player_mappings["special"]
-        ];
-
-        // Functions to be called for actions. Each of these functions will get player_id and state
-        var actions = [
-            get_attack_action(const_state, player_id)
-        ];
-
-        resolve_player_special.push(
-            attach_player_actions(action_mappings, actions, player_id)
-        );
+        new_player(state, get_player_id(i), i + 1);
     }
 
-    const_state.player_count = count;
-    
+}
 
-    function update(state, stage){
-        for(var i = 0; i < count; i ++){
-            resolve_player_move[i](state);
-            resolve_player_rotate[i](state);
-            resolve_player_special[i](state, stage);
-        }
+// state :: game_state, 
+// player_id :: string => key, 
+// mapping :: int [1,2] => default mapping to use
+function new_player(state, player_id, mapping){
+    /* CREATE NEW INSTANCE */
+    const spriteWidth = 16;
+    const spriteHeight = 16;
+
+    var knightImg = new Image(spriteWidth * 6, spriteHeight);  // width, height of resized knight image
+    knightImg.src = "assets/images/knight_run_spritesheet.png";
+
+    // knight run spritesheet data
+    var knightSheet = {
+        images: [knightImg],
+        frames: {width: spriteWidth, height: spriteHeight},
+        framerate: 15
+    };
+
+    // create sprites	
+    var knightSprite = new createjs.SpriteSheet(knightSheet);
+    var animation = new createjs.Sprite(knightSprite);
+
+    state[player_id] = {
+        animation: animation,
+        isMoving: false,
+        facingRight: true,
+        facingRightPrev: true,
+        width: spriteWidth,
+        height: spriteHeight
     }
 
-    return update; 
+    /* ADD TO RENDER */
+    // TODO delete it should instead register a renderable component
+    state[render_stage_id].addChild(state[player_id].animation);
+
+    /* Register to Input Feedback */
+    // state :: state object, player_id :: key in table, i + 1 :: player_input_mapping
+    // player_input_mapping --> See input.js
+    register_player_movable(state, player_id, mapping);
+
+    register_player_action(state, player_id, mapping);
 }

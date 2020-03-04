@@ -6,66 +6,76 @@
  */
 
 
-const attack_asset_dir = "assets/images/AttackEffect.png";
+const player_action_id = "player-action";
 
-
-function attach_player_actions(action_lst, callback_lst, player_name){
-    if(action_lst.length != callback_lst.length){
-        console.error(
-            "An action list was given to attach_player_actions," +
-            " but callback list was not the same size."
-        );
+function register_player_action(state, id, mapping_number){
+    if(!state[player_action_id]){
+        state[player_action_id] = {
+            registry: []
+        };
     }
 
-    return (state, stage) => {
-        for(var i = 0; i < action_lst.length; i ++){
-            if(state.input & action_lst[i]){
-                callback_lst[i](state, stage, state[player_name]);
-            }
+    state[player_action_id].registry.push({
+        entity: id, 
+        input_mapping: get_default_player_control_map(mapping_number) // See input.js
+    });
+
+
+    state[id].isUsingAbility = false;
+}
+
+function resolve_player_action(state){
+    if(state[player_action_id]){
+        for(var i = 0; i < state[player_action_id].registry.length; i ++){
+
+            resolve_player_action_individual(
+                state,
+                state[player_action_id].registry[i].input_mapping,
+                state[player_action_id].registry[i].entity
+            );
+
         }
     }
 }
 
-function get_attack_action(const_state, player_name){
-    // Dimensions of the attacks image
-    const effect_width = 64;
-    const effect_height = 64;
-    const frames = 8;
-    const rate = 15;
-    const attack_id = "attack-" + player_name;
-
-    function attack(state, stage){
-        if(!state.temp[attack_id]){
-            var target_x = state[player_name].animation.x;
-            var target_y = state[player_name].animation.y;
-            var x = target_x - (effect_width / 2) + (state[player_name].animation.width / 2);
-            var y = target_y - (effect_height / 2) + (state[player_name].animation.height / 2);
-
-            var effectImage = new Image(frames * effect_width, effect_height); // New Image HTML element
-            effectImage.src = "assets/images/AttackEffect.png";
-
-            // knight run spritesheet data
-            var data = {
-                images: [effectImage],
-                frames: {width: effect_width, height: effect_height},
-                framerate: rate
-            };
-
-            var sheet = new createjs.SpriteSheet(data);
-            var sprite = new createjs.Sprite(sheet);
-            
-            sprite.x = x;
-            sprite.y = y;
-
-            state.temp[attack_id] = {
-                ref: sprite,
-                ttl: Math.round(frames / Math.round(60 / rate))  
-            }
-
-            stage.addChild(state.temp[attack_id].ref);
-            state.temp[attack_id].ref.gotoAndPlay(0);
+function resolve_player_action_individual(state, mapping, entity_id){
+    if(state.input & mapping["special"]){
+        if(state[entity_id].isUsingAbility === false){
+            state[entity_id].isUsingAbility = true;
+            player_action_slime_attack(state, entity_id);
         }
     }
-    
-    return attack;
+
+    if(state[entity_id].isUsingAbility === true){
+        player_action_cleanup(state, entity_id);
+    }
+}
+
+// id for state hashtable
+const attack_id = "-attack";
+
+function player_action_slime_attack(state, entity_id){
+    const temp_id = entity_id + attack_id
+    if(!state[temp_id]){
+        new_slime_attack(state, temp_id);
+        state[temp_id].gotoAndPlay(0);
+
+        
+        register_auto_movable(state, temp_id, auto_movable_type_teleportation_ref_with_offset, entity_id);
+
+        // Get Offset!
+        // Player should have x and y. We should not use animation.x and animation.y
+        var offset_x = -1 * (state[temp_id].width / 2) + (state[entity_id].width / 2);
+        var offset_y = -1 * (state[temp_id].height / 2) + (state[entity_id].height / 2);
+
+        auto_movable_set_target_ref(state[temp_id], entity_id, temp_id);
+        auto_movable_set_move_offset(state[temp_id], offset_x, offset_y);
+    }
+}
+
+function player_action_cleanup(state, entity_id){
+    const temp_id = entity_id + attack_id
+    if(!state[temp_id]){
+        state[entity_id].isUsingAbility = false;
+    }
 }

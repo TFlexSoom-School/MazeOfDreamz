@@ -7,6 +7,15 @@
 // tile dimenstions
 const tile_dim = 16;
 
+function new_background(state){
+	
+    var tiles = gen_map(
+		(state[render_stage_id].canvas.width / tile_dim), 
+		(state[render_stage_id].canvas.height / tile_dim)
+	);
+
+    draw_map(state[render_stage_id], tiles);
+}
 
 function draw_map(stage, tiles){
 	const assets_dir = "assets/images/";

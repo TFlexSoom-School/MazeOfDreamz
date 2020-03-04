@@ -12,40 +12,47 @@ function resolve_exit(state){
 }
 
 function main(){
-	var state = setup();
+	
+	// Generates an empty object to attach things to
+	var state = new_state();
 
-	/* SETUP RENDERING */
+	/* -- SETUP INPUT -- */
+	register_input(state);
 
-	// init canvas object
-	var render_stage = new createjs.Stage("game_board");
+	/* -- SETUP MAP -- */
 
-	set_stage(state, render_stage);
+	// Attaches EasleJS Stage to State Object.
+	register_render_to_state(state);
 
-	// Get 2 Player Objects
-	var player_tick = new_num_players(state, render_stage, 2);
+	// Get a new Background into State (Cheats! Also adds itself to renderer)
+	new_background(state);
+
+	/* -- SETUP PLAYERS -- */
+
+	// Attach 2 players to State
+	new_num_players(state, 2);
 
 	// Get Enemy Spawner/Hive Mind
-	var enemy_tick = new_hive_mind(state);
+	//var enemy_tick = new_hive_mind(state);
 
+	// For Debugging!
 	console.log(state)
 
+	/* SETUP LOOP */
 	// handles canvas updates
 	function update(event){
+		state.event = event
 		// Tasks or Systems (resolves)
-		state.input = resolve_input();
+		resolve_input(state);
+		resolve_movable(state);
+		resolve_player_action(state);
+		resolve_render(state);
 
-		/* Tick Functions */
-		player_tick(state, render_stage);
-		enemy_tick(state, render_stage);
-
-		resolve_exit(state);
-		
 		// Check Exit Condition
+		resolve_exit(state);
 		if(state.exit){
 			window.close();
 		}
-		
-		render_stage.update(event);
 	}
 
 

@@ -1,17 +1,15 @@
 /*
  * Cory Hayes
  * 3/2/2020
- * This function handles the generation of the map.
+ * This function handles the generation of State
  * 
  */
 
 // Setup Function for Setting Up State Object
-function setup(){
+function new_state(){
 	
-    // setup player data
     var state = {
-        temp: {},
-        input: 0,
+        event: {},
         exit: false
     }
 

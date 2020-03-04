@@ -14,3 +14,6 @@
  */
 
 
+function attach_instance_to_lifetime(state, entity, update_list){
+
+}

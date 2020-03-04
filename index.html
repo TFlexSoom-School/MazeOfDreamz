@@ -9,16 +9,14 @@
 	  <script src="src/third-party/easeljs.min.js"></script>
     
     <!-- Initial Generation -->
-    <script src="src/generation/gen-map.js"></script>
+    <script src="src/generation/map/gen-map.js"></script>
+    <script src="src/generation/map/render-map.js"></script>
     <script src="src/generation/gen-state.js"></script>
-
-    <!-- Rendering Setup (SEE NOTE) -->
-    <script src="src/stage/map-render.js"></script>
-    <script src="src/stage/set_stage.js"></script>
-
+    
     <!--------- ************** Entities ************** --------->
     <script src="src/entities/enemy.js"></script>
     <script src="src/entities/player.js"></script>
+    <script src="src/entities/slime_attack.js"></script>
     
     <!--------- ************** Systems ************** --------->
     
@@ -30,15 +28,22 @@
     <!-- Input -->
     <script src="src/systems/input/input.js"></script>
 
-    <!-- Movement -->
+    <!-- Movable -->
+    <script src="src/systems/movable/movable.js"></script>
     <script src="src/systems/movable/auto_movable.js"></script>
     <script src="src/systems/movable/player_movable.js"></script>
+
+    <!-- Render -->
+    <script src="src/systems/render/render.js"></script>
 
     <!-- Spawning -->
     <script src="src/systems/spawn/spawn.js"></script>
 
     <!-- Special Action -->
     <script src="src/systems/special-action/player_action.js"></script>
+
+    <!-- Systems Utilities -->
+    <script src="src/systems/system.js"></script>
 
     <!--------- ************** Main ************** --------->
     <script src="src/main.js" defer></script>
