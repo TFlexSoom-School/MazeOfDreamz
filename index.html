@@ -1,12 +1,60 @@
 <!DOCTYPE html>
 <html>
+
   <head>
-	<title>Maze of Dreamz</title>
-    <script src="src/createjs.min.js"></script>
-	<script src="src/easeljs.min.js"></script>
+    <title>Maze of Dreamz</title>
+
+    <!-- Third Party Scripts -->
+    <script src="src/third-party/createjs.min.js"></script>
+	  <script src="src/third-party/easeljs.min.js"></script>
+
+    <!-- Initial Generation -->
+    <script src="src/generation/map/gen-map.js"></script>
+    <script src="src/generation/map/render-map.js"></script>
+    <script src="src/generation/gen-state.js"></script>
+    <script src="src/generation/game/rules.js"></script>
+
+    <!--------- ************** Entities ************** --------->
+    <script src="src/entities/enemy.js"></script>
+    <script src="src/entities/player.js"></script>
+    <script src="src/entities/slime_attack.js"></script>
+    <script src="src/entities/spawn_list.js"></script>
+
+    <!--------- ************** Systems ************** --------->
+
+    <!-- AI -->
+    <script src="src/systems/ai/ai.js"></script>
+    <script src="src/systems/ai/zombie_ai.js"></script>
+
+    <!-- Collision -->
+
+    <!-- Input -->
+    <script src="src/systems/input/input.js"></script>
+
+    <!-- Movable -->
+    <script src="src/systems/movable/movable.js"></script>
+    <script src="src/systems/movable/auto_movable.js"></script>
+    <script src="src/systems/movable/player_movable.js"></script>
+
+    <!-- Render -->
+    <script src="src/systems/render/render.js"></script>
+
+    <!-- Spawning -->
+    <script src="src/systems/spawn/spawn.js"></script>
+
+    <!-- Special Action -->
+    <script src="src/systems/special-action/player_action.js"></script>
+
+    <!-- Systems Utilities -->
+    <script src="src/systems/system.js"></script>
+
+    <!--------- ************** Main ************** --------->
+    <script src="src/main.js" defer></script>
+
+
+
   </head>
-  <body>
-    <canvas id="game_board" width="500" height="300"></canvas>
-	<script src="src/main.js"></script>
+    <body>
+    <canvas id="game_board" width="800" height="450"></canvas>
   </body>
 </html>
