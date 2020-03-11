@@ -1,6 +1,6 @@
 /*
  * Tristan Hilbert & Cory Hayes & Haofeng Tian
- * 3/2/2020
+ * 3/9/2020
  * 
  * Returns a function for a player movable object
  * 
@@ -32,7 +32,8 @@ function resolve_player_movable(state){
             resolve_movement_individual(
                 state,
                 state[  state[player_movable_id].registry[i].entity  ],
-                state[player_movable_id].registry[i].input_mapping
+                state[player_movable_id].registry[i].input_mapping,
+                i
             );
             
             resolve_rotate_individual(
@@ -45,17 +46,16 @@ function resolve_player_movable(state){
 }
 
 
-function resolve_movement_individual(state, entity, input_map){
+function resolve_movement_individual(state, entity, input_map, i){
     // Player moves
     var isPlayerMoving = false;
     var diffx = 0;
     var diffy = 0;
     var direction;
-
     // Move Up
     if (state.input & input_map["up"]) {
         direction = "up";
-        if (!collision(state, tiles, "p1", direction)) {
+        if (!collision(state, tiles, i, direction)) {
             diffy -= entity.speed_y;
             isPlayerMoving = true;
             isPlayerMovingHoriz = true;
@@ -65,7 +65,7 @@ function resolve_movement_individual(state, entity, input_map){
     // Move Down
     if (state.input & input_map["down"]) {
         direction = "down";
-        if (!collision(state, tiles, "p1", direction)) {
+        if (!collision(state, tiles, i, direction)) {
             diffy += entity.speed_y;
             isPlayerMoving = true;
             isPlayerMovingHoriz = true;
@@ -75,7 +75,7 @@ function resolve_movement_individual(state, entity, input_map){
     // Move Right
     if(state.input & input_map["right"]){
         direction = "right";
-        if (!collision(state, tiles, player, direction)) {
+        if (!collision(state, tiles, i, direction)) {
             diffx += entity.speed_x;
             entity.facingRight = true;
             isPlayerMoving = true;
@@ -85,7 +85,7 @@ function resolve_movement_individual(state, entity, input_map){
     // Move Left
     if (state.input & input_map["left"]) {
         direction = "left";
-        if (!collision(state, tiles, "p1", direction)) {
+        if (!collision(state, tiles, i, direction)) {
             diffx -= entity.speed_x;
             entity.facingRight = false;
             isPlayerMoving = true;

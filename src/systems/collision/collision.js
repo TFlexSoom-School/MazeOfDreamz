@@ -12,14 +12,15 @@ function collision(state, tiles, player, direction) {
 	//create a detection area for player(x,y=player.x/y,size = player size)
 	var area = new createjs.Shape();
 	area.graphics.beginStroke("rgba(255,0,0,0.5)").drawRect(0, 0, state.player1.width, state.player1.height);
-	if (player_movable_id == 1) {
+	if (player == 0) {
 		area.x = state.player1.animation.x;
 		area.y = state.player1.animation.y;
 		if (!state.player1.facingRight) {
 			area.x = area.x - 16;  //when change the facing direction of the player, the player.x will move the width of the player
 		}
 	}
-	if (player_movable_id == 2) {
+	console.log(player);
+	if (player == 1) {
 		area.x = state.player2.animation.x;
 		area.y = state.player2.animation.y;
 		if (!state.player2.facingRight) {
