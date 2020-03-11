@@ -47,8 +47,10 @@ function main(){
         resolve_ai(state);
 		resolve_movable(state);
 		resolve_player_action(state);
-        resolve_spawn(state);
+		resolve_spawn(state);
+		resolve_lifetime(state);
 		resolve_render(state);
+		resolve_death(state);
 
 		// Check Exit Condition
 		resolve_exit(state);

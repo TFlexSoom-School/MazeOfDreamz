@@ -42,11 +42,13 @@ function resolve_player_action_individual(state, mapping, entity_id){
 }
 
 // id for state hashtable
-const attack_id = "-attack";
+const attack_id_suffix = "-attack";
+const slime_attack_frames = 20;
 
 function player_action_slime_attack(state, entity_id){
-    const temp_id = entity_id + attack_id
-    if(state[temp_id] !== undefined){
+    const temp_id = entity_id + attack_id_suffix
+    if(state[temp_id] === undefined){
+        console.log("Power!");
         new_slime_attack(state, temp_id);
         state[temp_id].gotoAndPlay(0);
 
@@ -59,11 +61,14 @@ function player_action_slime_attack(state, entity_id){
 
         auto_movable_set_target_ref(state[temp_id], entity_id, temp_id);
         auto_movable_set_move_offset(state[temp_id], offset_x, offset_y);
+        
+        // Set Lifetime
+        register_lifetime(state, temp_id, slime_attack_frames);
     }
 }
 
 function player_action_cleanup(state, entity_id){
-    const temp_id = entity_id + attack_id
+    const temp_id = entity_id + attack_id_suffix
     if(state[temp_id] === undefined){
         state[entity_id].isUsingAbility = false;
     }
