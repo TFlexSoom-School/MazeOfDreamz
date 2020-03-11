@@ -65,7 +65,7 @@ function resolve_system(state, id, apply){
 /* Example implementation of the above closure/lambda function */
 /*
 
-resolve_system(state, lifetime_id, (state, reg_object) => {
+resolve_system(state, system_id, (state, reg_object) => {
 
 });
 
