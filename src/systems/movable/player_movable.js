@@ -1,5 +1,5 @@
 /*
- * Tristan Hilbert & Cory Hayes
+ * Tristan Hilbert & Cory Hayes & Haofeng Tian
  * 3/2/2020
  * 
  * Returns a function for a player movable object
@@ -50,33 +50,46 @@ function resolve_movement_individual(state, entity, input_map){
     var isPlayerMoving = false;
     var diffx = 0;
     var diffy = 0;
+    var direction;
 
     // Move Up
-    if(state.input & input_map["up"]){
-        diffy -= entity.speed_y;
-        isPlayerMoving = true;
-        isPlayerMovingHoriz = true;
+    if (state.input & input_map["up"]) {
+        direction = "up";
+        if (!collision(state, tiles, "p1", direction)) {
+            diffy -= entity.speed_y;
+            isPlayerMoving = true;
+            isPlayerMovingHoriz = true;
+        }
     }
 
     // Move Down
-    if(state.input & input_map["down"]){
-        diffy += entity.speed_y;
-        isPlayerMoving = true;
-        isPlayerMovingHoriz = true;
+    if (state.input & input_map["down"]) {
+        direction = "down";
+        if (!collision(state, tiles, "p1", direction)) {
+            diffy += entity.speed_y;
+            isPlayerMoving = true;
+            isPlayerMovingHoriz = true;
+        }
     }
 
     // Move Right
     if(state.input & input_map["right"]){
-        diffx += entity.speed_x;
-        entity.facingRight = true;
-        isPlayerMoving = true;
+        direction = "right";
+        if (!collision(state, tiles, player, direction)) {
+            diffx += entity.speed_x;
+            entity.facingRight = true;
+            isPlayerMoving = true;
+        }
     }
 
     // Move Left
-    if(state.input & input_map["left"]){
-        diffx -= entity.speed_x;
-        entity.facingRight = false;
-        isPlayerMoving = true;
+    if (state.input & input_map["left"]) {
+        direction = "left";
+        if (!collision(state, tiles, "p1", direction)) {
+            diffx -= entity.speed_x;
+            entity.facingRight = false;
+            isPlayerMoving = true;
+        }
     }
 
     if(diffx != 0 && diffy != 0){
