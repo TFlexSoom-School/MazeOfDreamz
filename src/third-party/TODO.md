@@ -1,0 +1,1 @@
+This directory needs an illicit reference to CreateJS's License. This is a copied library and it needs to be referenced. This could hold us liable for not doing so.
