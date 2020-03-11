@@ -8,16 +8,12 @@
 
 const player_movable_id = "player_movable"
 function register_player_movable(state, id, mapping_number){
-    if(!state[player_movable_id]){
-        state[player_movable_id] = {
-            registry: []
-        };
+    
+    var reg_obj = {
+        input_mapping: get_default_player_control_map(mapping_number) // See input.js
     }
 
-    state[player_movable_id].registry.push({
-        entity: id, 
-        input_mapping: get_default_player_control_map(mapping_number) // See input.js
-    });
+    register_entity_system(state, player_movable_id, reg_obj, id);
 
     state[id].speed_x = Math.floor(state[id].width / 8);
     state[id].speed_y = Math.floor(state[id].height / 8);
@@ -26,22 +22,17 @@ function register_player_movable(state, id, mapping_number){
 }
 
 function resolve_player_movable(state){
-    if(state[player_movable_id]){
-
-        for(var i = 0; i < state[player_movable_id].registry.length; i ++){
-            resolve_movement_individual(
-                state,
-                state[  state[player_movable_id].registry[i].entity  ],
-                state[player_movable_id].registry[i].input_mapping
-            );
-            
-            resolve_rotate_individual(
-                state[  state[player_movable_id].registry[i].entity  ]
-            );
-
-        }
-    }
-
+    resolve_system(state, player_movable_id, (state, reg_object) => {
+        resolve_movement_individual(
+            state,
+            state[ reg_object.entity  ],
+            reg_object.input_mapping
+        );
+        
+        resolve_rotate_individual(
+            state[  reg_object.entity  ]
+        );
+    });
 }
 
 
@@ -80,11 +71,17 @@ function resolve_movement_individual(state, entity, input_map){
     }
 
     if(diffx != 0 && diffy != 0){
-        entity.animation.x += entity.speed_lin * (diffx / Math.abs(diffx));
-        entity.animation.y += entity.speed_lin * (diffy / Math.abs(diffy));
+        var diffLinX = entity.speed_lin * (diffx / Math.abs(diffx));
+        var diffLinY = entity.speed_lin * (diffy / Math.abs(diffy));
+        entity.x += diffLinX;
+        entity.y += diffLinY;
+        entity.animation.x += diffLinX;
+        entity.animation.y += diffLinY; 
     }else{
+        entity.x += diffx;
+        entity.y += diffy;
         entity.animation.x += diffx;
-        entity.animation.y += diffy;
+        entity.animation.y += diffy; 
     }
 
     // Animate Player
@@ -101,7 +98,7 @@ function resolve_movement_individual(state, entity, input_map){
 function resolve_rotate_individual(entity){
     // turn sprite if necessary
     if(entity.facingRight != entity.facingRightPrev){
-        entity.animation.scaleX = entity.animation.scaleX * -1;
+        entity.animation.scaleX *= -1;
         entity.animation.x -= entity.animation.scaleX * entity.width;
         entity.facingRightPrev = entity.facingRight;
     }

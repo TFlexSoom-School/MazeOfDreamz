@@ -15,8 +15,8 @@ function resolve_zombie_ai(state, entity_id){
 
     if(state[target_id]){
         // Bad... This should just be x
-        var x = state[target_id].animation.x;
-        var y = state[target_id].animation.y;
+        var x = state[target_id].x;
+        var y = state[target_id].y;
 
         // Might want to use Movable ref instead of point
         state[entity_id].target_movex = x;

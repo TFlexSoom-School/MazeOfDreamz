@@ -13,7 +13,7 @@ function register_render_to_state(state){
 }
 
 function register_render(state, id){
-    if(!state[render_stage_id]){
+    if(state[render_stage_id] === undefined){
         throw "Cannot add to render stage because none exists!";
     }
 

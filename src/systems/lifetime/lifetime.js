@@ -13,7 +13,19 @@
  * 
  */
 
+const lifetime_id = "lifetime_system"
 
-function attach_instance_to_lifetime(state, entity, update_list){
+function attach_instance_to_lifetime(state, id){
+    var reg_obj = {};
 
+    register_entity_system(state, lifetime_id, reg_obj, id);
+
+    state[id].ttl = 0;
+}
+
+
+function resolve_lifetime(state){
+    resolve_system(state, lifetime_id, (state, reg_object) => {
+        const entity_id 
+    });
 }

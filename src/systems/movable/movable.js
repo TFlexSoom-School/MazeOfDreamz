@@ -5,6 +5,7 @@
  * 
  */
 
+/* TODO use types field in registry rather than propagating to independent systems. */
 
 function resolve_movable(state){
     resolve_player_movable(state);
