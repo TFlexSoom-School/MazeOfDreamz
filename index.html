@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 
-  <head>
+<head>
     <title>Maze of Dreamz</title>
 
     <!-- Third Party Scripts -->
     <script src="src/third-party/createjs.min.js"></script>
-	  <script src="src/third-party/easeljs.min.js"></script>
+    <script src="src/third-party/easeljs.min.js"></script>
 
     <!-- Initial Generation -->
     <script src="src/generation/map/gen-map.js"></script>
@@ -21,12 +21,12 @@
     <script src="src/entities/spawn_list.js"></script>
 
     <!--------- ************** Systems ************** --------->
-
     <!-- AI -->
     <script src="src/systems/ai/ai.js"></script>
     <script src="src/systems/ai/zombie_ai.js"></script>
 
     <!-- Collision -->
+    <script src="src/systems/collision/collision.js"></script>
 
     <!-- Death -->
     <script src="src/systems/death/death.js"></script>
@@ -59,7 +59,7 @@
 
 
 
-  </head>
+</head>
     <body>
     <canvas id="game_board" width="800" height="450"></canvas>
   </body>

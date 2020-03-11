@@ -52,5 +52,6 @@ function resolve_collision(state){
             default:
                 resolve_collision_tristan(state, reg_object.entity, lookupTable);
         }
-    });    
+	});  
 }
+ 

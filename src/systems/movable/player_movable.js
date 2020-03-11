@@ -1,6 +1,6 @@
 /*
- * Tristan Hilbert & Cory Hayes
- * 3/2/2020
+ * Tristan Hilbert & Cory Hayes & Haofeng Tian
+ * 3/9/2020
  * 
  * Returns a function for a player movable object
  * 
@@ -33,41 +33,54 @@ function resolve_player_movable(state){
             state[  reg_object.entity  ]
         );
     });
+
 }
 
 
-function resolve_movement_individual(state, entity, input_map){
+function resolve_movement_individual(state, entity, input_map, i){
     // Player moves
     var isPlayerMoving = false;
     var diffx = 0;
     var diffy = 0;
-
+    var direction;
     // Move Up
-    if(state.input & input_map["up"]){
-        diffy -= entity.speed_y;
-        isPlayerMoving = true;
-        isPlayerMovingHoriz = true;
+    if (state.input & input_map["up"]) {
+        direction = "up";
+        if (!collision(state, tiles, i, direction)) {
+            diffy -= entity.speed_y;
+            isPlayerMoving = true;
+            isPlayerMovingHoriz = true;
+        }
     }
 
     // Move Down
-    if(state.input & input_map["down"]){
-        diffy += entity.speed_y;
-        isPlayerMoving = true;
-        isPlayerMovingHoriz = true;
+    if (state.input & input_map["down"]) {
+        direction = "down";
+        if (!collision(state, tiles, i, direction)) {
+            diffy += entity.speed_y;
+            isPlayerMoving = true;
+            isPlayerMovingHoriz = true;
+        }
     }
 
     // Move Right
     if(state.input & input_map["right"]){
-        diffx += entity.speed_x;
-        entity.facingRight = true;
-        isPlayerMoving = true;
+        direction = "right";
+        if (!collision(state, tiles, i, direction)) {
+            diffx += entity.speed_x;
+            entity.facingRight = true;
+            isPlayerMoving = true;
+        }
     }
 
     // Move Left
-    if(state.input & input_map["left"]){
-        diffx -= entity.speed_x;
-        entity.facingRight = false;
-        isPlayerMoving = true;
+    if (state.input & input_map["left"]) {
+        direction = "left";
+        if (!collision(state, tiles, i, direction)) {
+            diffx -= entity.speed_x;
+            entity.facingRight = false;
+            isPlayerMoving = true;
+        }
     }
 
     if(diffx != 0 && diffy != 0){

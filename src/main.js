@@ -23,7 +23,7 @@ function main(){
 
 	// Attaches EasleJS Stage to State Object.
 	register_render_to_state(state);
-
+	
 	// Get a new Background into State (Cheats! Also adds itself to renderer)
 	new_background(state);
 
@@ -58,7 +58,7 @@ function main(){
 		if(state.exit){
 			window.close();
 		}
-	}	
+	}
 	createjs.Ticker.setFPS(40);
     createjs.Ticker.addEventListener("tick", update);
 }
