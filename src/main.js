@@ -52,13 +52,13 @@ function main(){
 		resolve_render(state);
 		resolve_death(state);
 
+
 		// Check Exit Condition
 		resolve_exit(state);
 		if(state.exit){
 			window.close();
 		}
-	}
-
+	}	
 	createjs.Ticker.setFPS(40);
     createjs.Ticker.addEventListener("tick", update);
 }
