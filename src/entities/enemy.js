@@ -13,8 +13,8 @@
  *
  */
 
-const enemy_width = 16;
-const enemy_height = 16;
+const enemy_width = 8;
+const enemy_height = 8;
 
 /*
  * newEnemy(state, stage) :: Base Enemy Type

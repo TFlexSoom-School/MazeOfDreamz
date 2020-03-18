@@ -14,6 +14,8 @@
  *
  */
 
+const num_of_enemies = 10;
+
 function setup_game(state){
     var enemy_spawn_list_id = "enemy-spawners";
     new_spawn_list(state, enemy_spawn_list_id);
@@ -22,11 +24,15 @@ function setup_game(state){
         {x: 200, y: 250},
         {x: 300, y: 150},
         {x: 100, y: 280},
-        {x: 300, y: 220}
+        {x: 300, y: 220},
+        {x: 280, y: 220},
+        {x: 250, y: 220},
+        {x: 100, y: 270},
+        {x: 175, y: 190}
     ];
 
     var tag = "";
-    for(var i = 0; i < 3; i ++){
+    for(var i = 0; i < 10; i ++){
         tag = "enemy-" + i;
         new_enemy(state, tag);
         state[tag].speed_x = 1;

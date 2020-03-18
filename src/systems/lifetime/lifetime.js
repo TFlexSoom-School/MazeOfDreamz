@@ -13,7 +13,36 @@
  * 
  */
 
+const lifetime_id = "lifetime-system"
 
-function attach_instance_to_lifetime(state, entity, update_list){
+function register_lifetime(state, id, frames){
+    var reg_obj = {};
 
+    register_entity_system(state, lifetime_id, reg_obj, id);
+
+    state[id].ttl = frames;
+}
+
+
+function resolve_lifetime(state){
+    resolve_system(state, lifetime_id, (state, reg_object) => {
+        const entity_id = reg_object.entity;
+
+        if(countdown_lifetime(state, entity_id) === true){
+            register_death(state, entity_id);
+        }
+
+    });
+}
+
+function countdown_lifetime(state, entity_id){
+    state[entity_id].ttl -= 1;
+
+    console.log(state[entity_id].ttl);
+    
+    if(state[entity_id].ttl <= 0){
+        return true;
+    }
+
+    return false;
 }

@@ -48,17 +48,19 @@ function new_player(state, player_id, mapping){
         facingRight: true,
         facingRightPrev: true,
         width: spriteWidth,
-        height: spriteHeight
+        height: spriteHeight,
+        x: 0,
+        y: 0
     }
+    
 
     /* ADD TO RENDER */
-    // TODO delete it should instead register a renderable component
     state[render_stage_id].addChild(state[player_id].animation);
 
     /* Register to Input Feedback */
     // state :: state object, player_id :: key in table, i + 1 :: player_input_mapping
     // player_input_mapping --> See input.js
-    register_player_movable(state, player_id, mapping);
+    register_player_movable(state, player_id, mapping, true);
 
     register_player_action(state, player_id, mapping);
 }

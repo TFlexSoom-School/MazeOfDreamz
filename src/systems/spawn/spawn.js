@@ -11,19 +11,14 @@ const spawning_id = "spawning-system"
 const spawn_type_periodic = 0;
 
 function register_spawn(state, id, type, list_id){
-    if(!state[spawning_id]){
-        state[spawning_id] = {
-            registry: []
-        }
-    }
-
     if(state[list_id]){
 
-        state[spawning_id].registry.push({
-            entity: id,
+        var reg_obj = {
             type: type,
             spawn_list: list_id
-        });
+        };
+
+        register_entity_system(state, spawning_id, reg_obj, id);
 
         state[id].isAlive = false;
 
@@ -47,17 +42,15 @@ function setup_spawn_type_periodic(state, id){
 }
 
 function resolve_spawn(state){
-    if(state[spawning_id]){
-        for(var i = 0; i < state[spawning_id].registry.length; i ++){
-            const entity_id = state[spawning_id].registry[i].entity;
-            const list_id = state[spawning_id].registry[i].spawn_list;
-            switch(state[spawning_id].registry[i].type){
-                case spawn_type_periodic:
-                default:
-                    resolve_spawn_periodic(state, entity_id, list_id);
-            }
+    resolve_system(state, spawning_id, (state, reg_object) => {
+        const entity_id = reg_object.entity;
+        const list_id = reg_object.spawn_list;
+        switch(reg_object.type){
+            case spawn_type_periodic:
+            default:
+                resolve_spawn_periodic(state, entity_id, list_id);
         }
-    }
+    });
 }
 
 function get_random_spawn(state, list_id){
@@ -81,11 +74,11 @@ function resolve_spawn_periodic(state, entity_id, list_id){
             state[entity_id].isAlive = true;
 
             var point = get_random_spawn(state, list_id);
-            console.log(point);
+            //console.log(point);
             state[entity_id].x = point.x;
             state[entity_id].y = point.y;
 
-            console.log(state);
+            //console.log(state);
         }else{
             state[entity_id].timer --;
         }

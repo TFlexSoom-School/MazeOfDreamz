@@ -20,16 +20,11 @@ const auto_movable_type_teleportation_ref_with_offset = 5;
 
 // state :: state_obj, type :: int => Type of auto_movement
 function register_auto_movable(state, id, type, ref_id){
-    if(!state[auto_movable_id]){
-        state[auto_movable_id] = {
-            registry: []
-        };
-    }
-
-    state[auto_movable_id].registry.push({
-        entity: id,
+    var reg_obj = {
         type: type
-    });
+    };
+
+    register_entity_system(state, auto_movable_id, reg_obj, id);
 
     state[id].x = 0;
     state[id].y = 0;
@@ -116,49 +111,47 @@ function register_auto_movable_target(state, id){
 /* --------------- Entry Point ------------------- */
 
 function resolve_auto_movable(state){
-    if(state[auto_movable_id]){
-        for(var i = 0; i < state[auto_movable_id].registry.length; i ++){
-            switch(state[auto_movable_id].registry[i].type){
-                case auto_movable_type_translation_ref:
-                    movable_resolve_translation_ref(
-                        state,
-                        state[state[auto_movable_id].registry[i].entity]
-                    );
-                    break;
-                case auto_movable_type_teleportation_ref:
-                    movable_resolve_teleportation_ref(
-                        state,
-                        state[state[auto_movable_id].registry[i].entity],
-                        false
-                    );
-                    break;
-                case auto_movable_type_translation_point:
-                    movable_resolve_translation_point(
-                        state[state[auto_movable_id].registry[i].entity]
-                    );
-                    break;
-                case auto_movable_type_teleportation_point_with_offset:
-                    movable_resolve_telportation_point(
-                        state[state[auto_movable_id].registry[i].entity],
-                        true
-                    );
-                    break;
-                case auto_movable_type_teleportation_ref_with_offset:
-                    movable_resolve_teleportation_ref(
-                        state,
-                        state[state[auto_movable_id].registry[i].entity],
-                        true
-                    );
-                    break;
-                case auto_movable_type_teleportation_point:
-                default:
-                    movable_resolve_teleportation_point(
-                        state[state[auto_movable_id].registry[i].entity],
-                        false
-                    );
-                }
-        }
-    }// else warning!
+    resolve_system(state, auto_movable_id, (state, reg_object) => {
+        switch(reg_object.type){
+            case auto_movable_type_translation_ref:
+                movable_resolve_translation_ref(
+                    state,
+                    state[reg_object.entity]
+                );
+                break;
+            case auto_movable_type_teleportation_ref:
+                movable_resolve_teleportation_ref(
+                    state,
+                    state[reg_object.entity],
+                    false
+                );
+                break;
+            case auto_movable_type_translation_point:
+                movable_resolve_translation_point(
+                    state[reg_object.entity]
+                );
+                break;
+            case auto_movable_type_teleportation_point_with_offset:
+                movable_resolve_telportation_point(
+                    state[reg_object.entity],
+                    true
+                );
+                break;
+            case auto_movable_type_teleportation_ref_with_offset:
+                movable_resolve_teleportation_ref(
+                    state,
+                    state[reg_object.entity],
+                    true
+                );
+                break;
+            case auto_movable_type_teleportation_point:
+            default:
+                movable_resolve_teleportation_point(
+                    state[reg_object.entity],
+                    false
+                );
+            }
+    });
 }
 
 /* ----- DEFINITIONS ----- */
@@ -203,8 +196,8 @@ function movable_resolve_translation_ref(state, ref){
 function movable_resolve_teleportation_ref(state, ref, isOffset){
     const target = state[ref.target_move_ref]
     if(target){
-        ref.x = target.animation.x;
-        ref.y = target.animation.y;
+        ref.x = target.x;
+        ref.y = target.y;
 
         if(isOffset){
             ref.x += ref.target_move_offsetx;

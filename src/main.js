@@ -23,7 +23,7 @@ function main(){
 
 	// Attaches EasleJS Stage to State Object.
 	register_render_to_state(state);
-
+	
 	// Get a new Background into State (Cheats! Also adds itself to renderer)
 	new_background(state);
 
@@ -47,8 +47,11 @@ function main(){
         resolve_ai(state);
 		resolve_movable(state);
 		resolve_player_action(state);
-        resolve_spawn(state);
+		resolve_spawn(state);
+		resolve_lifetime(state);
 		resolve_render(state);
+		resolve_death(state);
+
 
 		// Check Exit Condition
 		resolve_exit(state);
@@ -56,7 +59,6 @@ function main(){
 			window.close();
 		}
 	}
-
 	createjs.Ticker.setFPS(40);
     createjs.Ticker.addEventListener("tick", update);
 }
