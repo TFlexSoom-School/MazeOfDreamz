@@ -6,13 +6,9 @@
  */
 
 const collision_id = "collision-system"
-const collision_type_tristan = 0;
-const collision_type_haofeng = 1;
 
 function register_collision(state, id){
-    var reg_obj = {
-        type: collision_type_tristan
-    }
+    var reg_obj = {}
 
     register_entity_system(state, collision_id, reg_obj, id);
 
@@ -42,16 +38,49 @@ function resolve_collision(state){
     // List for subfunction to lookup previously read collision rectangles.
     var lookupTable = [];
 
-     // Ah Yes... N^2 Complexity
+     // Ah Yes... N^3 Complexity
     resolve_system(state, collision_id, (state, reg_object) => {
-        switch(reg_obj.type){
-            case collision_type_haofeng:
-                // Put In collision interface here!
-                break;
-            case collision_type_tristan:
-            default:
-                resolve_collision_tristan(state, reg_object.entity, lookupTable);
-        }
+        resolve_collision_individual(state, reg_object.entity, lookupTable);
 	});  
+}
+
+/*
+ * Tristan Hilbert
+ * 3/11/2020
+ * Collision Algorithm for Collision System
+ * 
+ */
+
+/*
+ * Collided objects will be stored in a global lookup table. This will
+ * be used to tell if a previously used object has collided with the current
+ * object. This uses a simple 2D collision rectangle with CreateJS's intersect
+ * function. This will be dope!
+ * 
+ */
+
+function resolve_collision_individual(state, entity_id, lookup){
+    if(lookup === undefined || lookup === null){
+        throw "Invalid Lookup Table!";
+    }
+
+    var rect = new createjs.Rectangle(
+        state[entity_id].x, 
+        state[entity_id].y,
+        state[entity_id].width,
+        state[entity_id].height
+    )
+
+    for(var i = 0; i < lookup.length; i ++){
+        if(rect.intersects(lookup[i].rect) === true){
+            state[entity_id].collidedWith.add(lookup[i].id);
+            state[lookup[i].id].collidedWith.add(entity_id);
+        }
+    }
+
+    lookup.push({
+        id: entity_id,
+        rect: rect
+    })
 }
  

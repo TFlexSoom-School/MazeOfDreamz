@@ -74,11 +74,11 @@ function resolve_spawn_periodic(state, entity_id, list_id){
             state[entity_id].isAlive = true;
 
             var point = get_random_spawn(state, list_id);
-            console.log(point);
+            //console.log(point);
             state[entity_id].x = point.x;
             state[entity_id].y = point.y;
 
-            console.log(state);
+            //console.log(state);
         }else{
             state[entity_id].timer --;
         }

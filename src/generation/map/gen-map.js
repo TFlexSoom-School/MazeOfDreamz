@@ -4,6 +4,7 @@
  * Generation of Map
  */
 
+const wall_png_name = "wall_1.png";
 
 // create map of size X tiles width, Y tiles height
 function gen_map(x, y){
@@ -70,7 +71,7 @@ function gen_map(x, y){
 	for(var i = 0; i < tiles.length; i++){
 		for(var j = 0; j < tiles[i].length; j++){
 			if(tiles[i][j].color == null){
-				tiles[i][j].color = "wall_1.png";
+				tiles[i][j].color = wall_png_name;
 			}
 		}
 	}
@@ -89,7 +90,7 @@ function create_tiles(tileCount, setColor, x, y, max_x, max_y){
 			create_tiles(--tileCount, setColor, x, ++y, max_x, max_y);
 		}
 		else if(tiles[x][y].color != setColor){
-			tiles[x][y].color = "wall_1.png";
+			tiles[x][y].color = wall_png_name;
 		}
 		else{
 			return;
