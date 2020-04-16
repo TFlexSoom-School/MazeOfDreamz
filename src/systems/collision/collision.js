@@ -12,7 +12,7 @@ function register_collision(state, id){
 
     register_entity_system(state, collision_id, reg_obj, id);
 
-    state[id].collidedWith = Set();
+    state[id].collidedWith = new Set();
 
     if(state[id].width === undefined){
         state[id].width = 0;

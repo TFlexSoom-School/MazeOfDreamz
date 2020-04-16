@@ -33,7 +33,7 @@ function draw_map(state, stage, tiles){
 			stage.addChild(newTile);
 
 			if(tiles[i][j].color == wall_png_name){
-				var tile_id = tile_id_prefix + (i + j);
+				var tile_id = tile_id_prefix + "(" + i + "," + j + ")";
 				state[tile_id] = tiles[i][j];
 				state[tile_id].width = 16;
 				state[tile_id].height = 16;

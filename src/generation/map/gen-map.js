@@ -34,6 +34,10 @@ function gen_map(x, y){
 	tiles = [];
 	
 	// initialize tiles 2D array
+	// This is bad. We should us push methods.
+	// Look at: https://www.tech.io/playgrounds/6181/javascript-arrays---tips-tricks-and-examples
+	// under "The length property"
+	/*
 	for(var i = 0; i < x; i++){
 		tiles[i] = [];
 		
@@ -45,16 +49,28 @@ function gen_map(x, y){
 			};
 		}
 	}
+	*/
+
+	for(var i = 0; i < x; i++){
+		tiles.push([]);
+		for(var j = 0; j < y; j ++){
+			tiles[i].push({
+				color: null,
+				x: i * tile_dim,
+				y: j * tile_dim,
+			});
+		}
+	}
 	
 	// allocate first (room_count - 1) rooms an amount of tiles
 	for(var i = 0; i < room_count - 1; i++){
 		//tilesPerRoom[i] = Math.floor(tile_count / room_count + (Math.random() * 2 * room_margin - room_margin) * tile_count); // giving too much variability
-		tilesPerRoom[i] = Math.floor(tile_count / room_count);
+		tilesPerRoom.push(Math.floor(tile_count / room_count))
 		tilesRemaining -= tilesPerRoom[i];
 	}
 	
 	// allocate last room remaining tiles
-	tilesPerRoom[room_count - 1] = tilesRemaining;
+	tilesPerRoom.push(tilesRemaining);
 	
 	for(var i = 0; i < room_count; i++){
 		var startTileX;
@@ -65,7 +81,7 @@ function gen_map(x, y){
 			startTileY = Math.floor(Math.random() * y);
 		}while(tiles[startTileX][startTileY].color != null)
 		
-		create_tiles(tilesPerRoom[i] - 1, tile_colors[i], startTileX, startTileY, x, y);
+		create_tiles(tilesPerRoom[i] - 1, tile_colors[i % tile_colors.length], startTileX, startTileY, x, y);
 	}
 	
 	for(var i = 0; i < tiles.length; i++){
@@ -79,6 +95,8 @@ function gen_map(x, y){
 	return(tiles);
 }
 
+/* Recursion is very powerhungry. Iterative method would be nicer
+   -- Tristan */
 function create_tiles(tileCount, setColor, x, y, max_x, max_y){
 	if(x >= 0 && x < max_x && y >= 0 && y < max_y && tileCount > 0){
 		if(tiles[x][y].color == null){
