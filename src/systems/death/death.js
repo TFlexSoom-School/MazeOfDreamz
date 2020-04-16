@@ -14,7 +14,6 @@ const death_id = "death-system"
 
 function register_death(state, id){
     var reg_obj = {};
-    console.log("DEATH!");
     register_entity_system(state, death_id, reg_obj, id);
 
     state[id].isDead = true; // to cheat death... set to false!

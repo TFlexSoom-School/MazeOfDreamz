@@ -40,5 +40,11 @@ function setup_game(state){
         state[tag].speed_lin = 1;
         register_spawn(state, tag, spawn_type_periodic, enemy_spawn_list_id);
         state[tag].timer = 0;
+
+        /* playerAttacks = new Set();
+        playerAttacks.add("player1-attack");
+        playerAttacks.add("player2-attack");
+        register_collision_effect(state, tag, CE_type_death, playerAttacks);*/
+        register_collision_effect(state, tag,    CE_type_print_collided);
     }
 }

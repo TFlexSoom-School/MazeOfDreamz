@@ -64,6 +64,9 @@ function player_action_slime_attack(state, entity_id){
         
         // Set Lifetime
         register_lifetime(state, temp_id, slime_attack_frames);
+
+        // Set Collision
+        register_collision(state, temp_id);
     }
 }
 

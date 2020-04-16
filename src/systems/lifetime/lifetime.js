@@ -37,8 +37,6 @@ function resolve_lifetime(state){
 
 function countdown_lifetime(state, entity_id){
     state[entity_id].ttl -= 1;
-
-    console.log(state[entity_id].ttl);
     
     if(state[entity_id].ttl <= 0){
         return true;

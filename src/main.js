@@ -49,6 +49,7 @@ function main(){
 		resolve_player_action(state);
 		resolve_spawn(state);
 		resolve_lifetime(state);
+		resolve_collision(state);
 		resolve_render(state);
 		resolve_death(state);
 
