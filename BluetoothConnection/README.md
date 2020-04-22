@@ -69,7 +69,8 @@ For BluetoothSever, it's testing is simple. Send serial messages to the server, 
 and any accepted messages with cause the cooresponding key to be pressed. Since this key press is sent to 
 what tab you are currently on, the effects of the keyboard press should be seen in the terminal or any tab you are in.
 For example you should be able to see the key board presses in a search bar. you can also try and connect two serial
-messagers, and send mesages at the same time. Connecting a third will result in the thrid connection being rejected.   
+messagers, and send mesages at the same time. Connecting a third will result in the thrid connection being rejected.
+Other testing could involve mutiple inputs at the same time, or specfic combinations to try and crash the program.
 
 
 
