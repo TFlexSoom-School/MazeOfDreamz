@@ -25,9 +25,11 @@ thread
 ## For bluetooth on the terminal for the Pi try the following:
 
 sudo apt-get update
+
 sudo apt-get install python-pip python-dev ipython
 
 sudo apt-get install bluetooth libbluetooth-dev
+
 sudo pip install pybluez==0.22   //this is for python 2.7, 0.23 is for python 3
 
 ## Next you need to configure the some files, use the following command:
