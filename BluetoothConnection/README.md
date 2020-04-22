@@ -4,12 +4,14 @@ This is the code for the bluetooth connection between the ECE team's created con
 It's job is to interpret the bluetooth controller's inputs and apply them to the created game and dashboard.
 In this directory you will find 3 python files, ClientControl1, ClientControl2, and BluetoothServer. Note that
 it will be impossible to run either client control with out one of the prototype controllers, I have included
-them for code review. Please look to ClientControl2 for comments as their content is mostly the same.  
+them for code review. Please look to ClientControl2 for comments as their content is mostly the same. Dont hesitate
+to ask question if you have them
+
 
 ## Setup BluetoothServer:
 
 Unfortuantly to run this code for testing you will need a raspberry pi with built in bluetooth like the 
-raspberry pi. Don't worry about running this if you do not wish to.
+raspberry pi. Don't worry about running this if you do not have the hardware.
 
 You will also need a way to send serial messages to server socket. If you do not have one, but do have a 
 phone that can run apps, I would recommend the Serial Bluetooth Terminal app. 
