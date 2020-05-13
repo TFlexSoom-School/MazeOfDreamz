@@ -27,7 +27,7 @@ function register_death(state, id){
 
 // Resolve all entities to be removed
 function resolve_death(state){
-    resolve_system(state, lifetime_id, (state, registry_obj) => {
+    resolve_system(state, death_id, (state, registry_obj) => {
         const entity_id = registry_obj.entity;
         if(state[entity_id].isDead){
             if(is_rendered(state, entity_id)){

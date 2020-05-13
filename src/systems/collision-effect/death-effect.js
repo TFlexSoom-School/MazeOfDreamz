@@ -8,9 +8,11 @@
 // A Pass off function for any collision that should result
 // in the death of the current sprite.
 function resolve_collision_effect_death(state, registry_obj){
+
     registry_obj.typesEffected.forEach((otherID) => {
         if(state[registry_obj.entity].collidedWith.has(otherID)){
             register_death(state, registry_obj.entity);
+            state[registry_obj.entity].collidedWith.clear();
         }
     });
 }

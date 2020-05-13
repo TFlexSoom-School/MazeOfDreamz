@@ -55,6 +55,7 @@ function main(){
 		resolve_spawn(state);
 		resolve_lifetime(state);
 		resolve_collision(state);
+		resolve_collision_effect(state);
 		resolve_render(state);
 		resolve_death(state);
 

@@ -9,8 +9,10 @@
 // This will log any component with a collision-effect 
 // of type print
 function resolve_collision_effect_print_collided(state, registry_obj){
-    console.log(registry_obj.entity + " collided!");
-    console.log(registry_obj.collided);
-    console.log("===========");
-    state[registry_obj.entity].collided.clear();
+    if(state[registry_obj.entity].collidedWith.size > 0){
+        console.log(registry_obj.entity + " collided!");
+        console.log(state[registry_obj.entity].collidedWith);
+        console.log("===========");
+        state[registry_obj.entity].collidedWith.clear();
+    }
 }
