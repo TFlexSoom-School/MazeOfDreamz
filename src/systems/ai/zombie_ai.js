@@ -9,6 +9,7 @@
  */
 
 
+// Pass off function for AI System. Resolves all "zombie" entities
 function resolve_zombie_ai(state, entity_id){
     const target_id = get_player_id(0); // See player entity : player.js
     const alt_target_id = get_player_id(1);

@@ -19,14 +19,27 @@ const input_flag_down2 = 1 << 8;
 const input_flag_left2 = 1 << 9;
 const input_flag_special2 = 1 << 10;
 
+/*
+ * Eventually it might be nice to consider multiple
+ * input flag Enums... This would prevent overflow
+ * after shifting so many times. As long as we don't
+ * have 32 different flags though, we should be fine.
+ */
+
+
+// ID for Input System
 const input_id = "input";
 
+// Register Input to State (No entity required)
+// This should be done for most games
 function register_input(state){
     state[input_id] = input_flag_none;
 }
 
 // Input Event Async Buffer
 var input_buffer_down = input_flag_none;
+
+// Add Any keys that are down to the down buffer
 document.addEventListener("keydown", (event) => {
     var key_code_temp = event.keyCode;
     var string_conv_temp = String.fromCharCode(key_code_temp);
@@ -90,6 +103,8 @@ document.addEventListener("keydown", (event) => {
 
 // Input Event Async Buffer
 var input_buffer_up = input_flag_none;
+
+// Add any keys that have come up in the on buffer
 document.addEventListener("keyup", (event) => {
     var key_code_temp = event.keyCode;
     var string_conv_temp = String.fromCharCode(key_code_temp);
@@ -142,18 +157,23 @@ document.addEventListener("keyup", (event) => {
 });
 
 /* Systems -- Resolves */
+// This function then copies the input buffers. Doing this
+// in one instruction due to the race condition it causes
+//
 function copy_inputs(){
     // Initializations
     var copy = [input_buffer_down, input_buffer_up]; // READ_ONLY NO LOCK
     return copy;
 }
 
-
+// Changes Game State based on internal buffers
 function resolve_input(state){
     var copy = copy_inputs();
     state[input_id] = copy[0] & ~copy[1];
 }
 
+// Getter for Control Maps to test if certain buttons are pressed
+// or not.
 function get_default_player_control_map(player){
     if(player == 1){
         return {

@@ -5,10 +5,12 @@
  * 
  */
 
-function resolve_collision_effect_death(state, reg_object){
-    reg_object.typesEffected.forEach((otherID) => {
-        if(state[reg_object.entity].collidedWith.has(otherID)){
-            register_death(state, reg_object.entity);
+// A Pass off function for any collision that should result
+// in the death of the current sprite.
+function resolve_collision_effect_death(state, registry_obj){
+    registry_obj.typesEffected.forEach((otherID) => {
+        if(state[registry_obj.entity].collidedWith.has(otherID)){
+            register_death(state, registry_obj.entity);
         }
     });
 }

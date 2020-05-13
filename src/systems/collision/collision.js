@@ -5,12 +5,14 @@
  * 
  */
 
+ // ID for Collision-system
 const collision_id = "collision-system"
 
+// Register a given entity to have collision
 function register_collision(state, id){
-    var reg_obj = {}
+    var registry_obj = {}
 
-    register_entity_system(state, collision_id, reg_obj, id);
+    register_entity_system(state, collision_id, registry_obj, id);
 
     state[id].collidedWith = new Set();
 
@@ -34,13 +36,14 @@ function register_collision(state, id){
     // i.e. the type needs an explicit collision rectangle. or other shape
 }
 
+// Resolve all collisions for entities
 function resolve_collision(state){
     // List for subfunction to lookup previously read collision rectangles.
     var lookupTable = [];
 
      // Ah Yes... N^3 Complexity
-    resolve_system(state, collision_id, (state, reg_object) => {
-        resolve_collision_individual(state, reg_object.entity, lookupTable);
+    resolve_system(state, collision_id, (state, registry_obj) => {
+        resolve_collision_individual(state, registry_obj.entity, lookupTable);
 	});  
 }
 
