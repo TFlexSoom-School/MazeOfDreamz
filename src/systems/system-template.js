@@ -11,13 +11,13 @@
 const systemname_id = "systemname-system"
 
 function register_systemname(state, id){
-    var reg_obj = {}
+    var registry_obj = {}
 
-    register_entity_system(state, systemname_id, reg_obj, id);
+    register_entity_system(state, systemname_id, registry_obj, id);
 }
 
 function resolve_systemname(state){
-    resolve_system(state, systemname_id, (state, reg_object) => {
+    resolve_system(state, systemname_id, (state, registry_obj) => {
         
 	});  
 }

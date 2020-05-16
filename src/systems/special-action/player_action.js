@@ -6,8 +6,10 @@
  */
 
 
+// ID for Player-Action System
 const player_action_id = "player-action";
 
+// Register for a Player Action entity
 function register_player_action(state, id, mapping_number){
     var reg_obj = { 
         input_mapping: get_default_player_control_map(mapping_number) // See input.js
@@ -53,7 +55,7 @@ function player_action_slime_attack(state, entity_id){
         state[temp_id].gotoAndPlay(0);
 
         
-        register_auto_movable(state, temp_id, auto_movable_type_teleportation_ref_with_offset, entity_id);
+        register_movable(state, temp_id, movable_type_auto, auto_movable_type_teleportation_ref_with_offset, entity_id);
 
         // Get Offset!
         var offset_x = -1 * (state[temp_id].width / 2) + (state[entity_id].width / 2);

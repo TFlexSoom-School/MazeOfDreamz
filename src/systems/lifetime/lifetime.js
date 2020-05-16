@@ -13,20 +13,24 @@
  * 
  */
 
+// ID for Lifetime System
 const lifetime_id = "lifetime-system"
 
+// Register a given entity to be given a lifetime
+// This is good for particle effects or animations
 function register_lifetime(state, id, frames){
-    var reg_obj = {};
+    var registry_obj = {};
 
-    register_entity_system(state, lifetime_id, reg_obj, id);
+    register_entity_system(state, lifetime_id, registry_obj, id);
 
+    // ttl -> Time To Live
     state[id].ttl = frames;
 }
 
-
+// Resolve all Lifetime Entities
 function resolve_lifetime(state){
-    resolve_system(state, lifetime_id, (state, reg_object) => {
-        const entity_id = reg_object.entity;
+    resolve_system(state, lifetime_id, (state, registry_obj) => {
+        const entity_id = registry_obj.entity;
 
         if(countdown_lifetime(state, entity_id) === true){
             register_death(state, entity_id);
@@ -35,6 +39,8 @@ function resolve_lifetime(state){
     });
 }
 
+// Decrement the time to live and check if the entity should
+// still live.
 function countdown_lifetime(state, entity_id){
     state[entity_id].ttl -= 1;
     

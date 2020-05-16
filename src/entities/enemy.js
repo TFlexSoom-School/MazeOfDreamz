@@ -29,7 +29,7 @@ function new_enemy(state, id){
     state[id].width = enemy_width;
     state[id].height = enemy_height;
 
-    register_auto_movable(state, id, auto_movable_type_translation_point, null);
+    register_movable(state, id, movable_type_auto, auto_movable_type_translation_point, null);
     register_ai(state, id, ai_type_zombie);
     register_render(state, id);
 

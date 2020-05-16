@@ -10,19 +10,25 @@
  * 
  */
 
+// ID for Death-System
 const death_id = "death-system"
 
+// Register an entity to be removed from state
+// Note this is near instantaneaous
+// attachment to this function results in either removal
+// in this frame or the next
+// (You can also cheat death... just in case!)
 function register_death(state, id){
-    var reg_obj = {};
-    register_entity_system(state, death_id, reg_obj, id);
+    var registry_obj = {};
+    register_entity_system(state, death_id, registry_obj, id);
 
     state[id].isDead = true; // to cheat death... set to false!
 }
 
-
+// Resolve all entities to be removed
 function resolve_death(state){
-    resolve_system(state, lifetime_id, (state, reg_object) => {
-        const entity_id = reg_object.entity;
+    resolve_system(state, death_id, (state, registry_obj) => {
+        const entity_id = registry_obj.entity;
         if(state[entity_id].isDead){
             if(is_rendered(state, entity_id)){
                 unregister_render(state, entity_id);

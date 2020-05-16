@@ -85,13 +85,13 @@ resolve_system(state, system_id, (state, reg_object) => {
  * 
  */
 
- function register_entity_system(state, id, reg_obj, entity_id){
+ function register_entity_system(state, id, registry_obj, entity_id){
      if(state[id] === undefined){
          state[id] = {
              registry: []
          }
      }
 
-     reg_obj.entity = entity_id;
-     state[id].registry.push(reg_obj);
+     registry_obj.entity = entity_id;
+     state[id].registry.push(registry_obj);
  }

@@ -60,7 +60,7 @@ function new_player(state, player_id, mapping){
     /* Register to Input Feedback */
     // state :: state object, player_id :: key in table, i + 1 :: player_input_mapping
     // player_input_mapping --> See input.js
-    register_player_movable(state, player_id, mapping, true);
+    register_movable(state, player_id, movable_type_player, mapping, true);
 
     register_player_action(state, player_id, mapping);
 }

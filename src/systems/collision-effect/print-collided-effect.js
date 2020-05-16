@@ -5,9 +5,14 @@
  * 
  */
 
-function resolve_collision_effect_print_collided(state, reg_object){
-    console.log(reg_object.entity + " collided!");
-    console.log(reg_object.collided);
-    console.log("===========");
-    state[reg_object.entity].collided.clear();
+// A Pass Off Function for debugging
+// This will log any component with a collision-effect 
+// of type print
+function resolve_collision_effect_print_collided(state, registry_obj){
+    if(state[registry_obj.entity].collidedWith.size > 0){
+        console.log(registry_obj.entity + " collided!");
+        console.log(state[registry_obj.entity].collidedWith);
+        console.log("===========");
+        state[registry_obj.entity].collidedWith.clear();
+    }
 }

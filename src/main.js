@@ -11,6 +11,11 @@ function resolve_exit(state){
     }
 }
 
+/*
+ * Entry Function into MazeOfDreamz
+ * This function starts the game.
+ * 
+ */
 function main(){
 
 	// Generates an empty object to attach things to
@@ -50,6 +55,7 @@ function main(){
 		resolve_spawn(state);
 		resolve_lifetime(state);
 		resolve_collision(state);
+		resolve_collision_effect(state);
 		resolve_render(state);
 		resolve_death(state);
 
@@ -64,4 +70,5 @@ function main(){
     createjs.Ticker.addEventListener("tick", update);
 }
 
+// Call Entry Function
 main();
