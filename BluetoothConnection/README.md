@@ -7,10 +7,10 @@ it will be impossible to run either client control with out one of the prototype
 them for code review. Please look to ClientControl2 for comments as their content is mostly the same. 
 
 
-## Setup BluetoothServer:
+## Setup BluetoothServer and ClientControl:
 
 Unfortunately to run this code for testing you will need a raspberry pi with built in bluetooth like the 
-raspberry pi. Don't worry about running this if you do not have the hardware.
+raspberry pi. Don't worry about running this if you do not have hardware present.
 
 You will also need a way to send serial messages to server socket. If you do not have one, but do have a 
 phone that can run apps, I would recommend the Serial Bluetooth Terminal app. 
