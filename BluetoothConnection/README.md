@@ -4,7 +4,7 @@ This is the code for the bluetooth connection between the ECE team's created con
 It's job is to interpret the bluetooth controller's inputs and apply them to the created game and dashboard.
 In this directory you will find 3 python files, ClientControl1, ClientControl2, and BluetoothServer. Note that
 it will be impossible to run either client control with out one of the prototype controllers, I have included
-them for code review. Please look to ClientControl2 for comments as their content is mostly the same. 
+them for code review. 
 
 
 ## Setup BluetoothServer and ClientControl:
