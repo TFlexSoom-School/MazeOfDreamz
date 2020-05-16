@@ -9,7 +9,7 @@ them for code review. Please look to ClientControl2 for comments as their conten
 
 ## Setup BluetoothServer:
 
-Unfortuantly to run this code for testing you will need a raspberry pi with built in bluetooth like the 
+Unfortunately to run this code for testing you will need a raspberry pi with built in bluetooth like the 
 raspberry pi. Don't worry about running this if you do not have the hardware.
 
 You will also need a way to send serial messages to server socket. If you do not have one, but do have a 
@@ -53,7 +53,7 @@ Finally add the following line directly below the ExecSart line:
 
 ExecStartPost=/usr/bin/sdptool add SP
 
-# Setting up the librarys 
+## Setting up the librarys 
 For keyboard library use the following command:
 
 
@@ -67,13 +67,13 @@ pip install thread
 
 For configuration with the ClientControl.py pip3 will help to install the libraries for python 3. 
 
-# Now in terminal you can try to run the BluetoothServer with:
+## Now in terminal you can try to run the BluetoothServer with:
 
 sudo python BluetoothServer.py
 
 from here try and connect and try to send serial messages
 
-# For ClientControl, you can run the code with in terminal with the following commands:
+## For ClientControl, you can run the code with in terminal with the following commands:
 
 sudo python3 ClientControlX.py
 
