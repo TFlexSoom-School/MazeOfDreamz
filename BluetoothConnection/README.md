@@ -1,5 +1,5 @@
-## Bluetooth Connection
-
+Bluetooth Connection by DreamzCatcherz
+=====
 This is the code for the bluetooth connection between the ECE team's created controller and the Raspberry Pi.
 It's job is to interpret the bluetooth controller's inputs and apply them to the created game and dashboard.
 In this directory you will find 3 python files, ClientControl1, ClientControl2, and BluetoothServer. Note that
