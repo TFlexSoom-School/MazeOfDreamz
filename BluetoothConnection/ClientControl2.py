@@ -10,13 +10,13 @@ import time
 
 Csocket = bluetooth.BluetoothSocket(bluetooth.RFCOMM) # sets up the socket to be RFCOMM serial over bluetooth
 #MYESP
-#server_socket.connect(("24:6F:28:A9:60:0A",1))
+#server_socket.connect(("24:6F:28:A9:60:0A",1)) 
 #address = "24:6F:28:A9:60:0A"
 #NESP
 
 #Csocket.connect(("C8:2B:96:9D:AC:26",1)) # the ESP's bluetooth MAC address, connects to the ESP
 #NESP2
-Csocket.connect(("C8:2B:96:9C:E0:4E",1))
+Csocket.connect(("C8:2B:96:9C:E0:4E",1))  #The other ESP is the palyer one controller
 
 #address = "24:6F:28:A9:60:0A"
 
