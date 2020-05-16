@@ -8,10 +8,6 @@ following files.
 Made By CS29 Dreamz Catcherz
 Oregon State University EECS Capstone 2020
 
-## Usage
-```$ git clone https://github.com/username/software-project.git
-...
-```
 ### Installation
 
 1. Navigate to the repository where you want to install the project
